@@ -21,7 +21,7 @@ jobs:
       - name: Fetch all branches
         run: git fetch --all
 
-      - name: Merge main into testing
+      - name: Merge main into test
         run: |
           git checkout testing
           git merge main
