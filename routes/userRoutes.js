@@ -46,4 +46,22 @@ router.post("/login",async (req,res)=>{
         res.status(500).send(err.message)
     }
 })
+router.get("/users",async (req,res)=>{
+    try{
+        const {data,errors}=await server.executeOperation({
+            query:gql`
+            query{
+                getUsers{
+                id name email password
+                }
+            }
+            `
+        })
+        if(errors)
+            res.status(404).send({message:"Not found"})
+        res.status(201).send(data)
+    }catch(err){
+        res.status(500).send({message:err.message})
+    }
+})
 module.exports=router
