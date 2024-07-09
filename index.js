@@ -1,4 +1,4 @@
-/* //const process=require('dotenv').config()
+//const process=require('dotenv').config()
 const express=require('express')
 const mongoose=require('mongoose')
 const {ApolloServer,gql}=require('apollo-server-express')
@@ -28,8 +28,10 @@ app.use(session({
 }));
 
 
-mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{console.log('DB connected')})
-.catch((err)=>{console.log(err.message)})
+mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{//console.log('DB connected')
+    })
+.catch((err)=>{//console.log(err.message)
+    })
 
 const server=new ApolloServer({typeDefs,resolvers})
 
@@ -38,10 +40,10 @@ async function StartServer(){
     await server.start();
     server.applyMiddleware({app})
     app.listen(port,()=>{console.log(`Server is live on ${port}`)})
-}*/
-function add(a,b){
-    return a+b;
 }
-/*
-StartServer()*/
-module.exports=add; 
+StartServer();
+
+ function add(a,b){
+    return a+b;
+} 
+module.exports={app,StartServer,add}
