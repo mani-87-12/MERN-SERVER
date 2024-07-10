@@ -12,15 +12,15 @@ let server;
 beforeAll(async ()=>{
     server=await StartServer();
     //server=await new ApolloServer({typeDefs,resolvers})
-})
-/* afterAll(done=>{
-    //server.close(done);
-})  */
+});
+ afterAll(done=>{
+    server.close(done);
+});
 describe('GET /users',()=>{
     test('Get users from /user api',async ()=>{
        const response=await request(app).get('/user/users')
        .expect(201);
-       console.log(response.body.getUsers[0])
+       //console.log(response.body.getUsers[0])
        const data=response.body
        data.getUsers.forEach(user => {
             expect(user).toHaveProperty('id')
