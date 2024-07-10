@@ -20,12 +20,12 @@ SESSION_SECRET='hT&k#V7$4@Wf2zY'
 //console.log(url)
 //console.log(sessionSecret)
 
-app.use(session({
+/* app.use(session({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Set to true if using HTTPS
-}));
+})); */
 
 
 mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{//console.log('DB connected')
@@ -36,14 +36,19 @@ mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{/
 const server=new ApolloServer({typeDefs,resolvers})
 
 app.use("/user",userApiFromRouter)
-async function StartServer(){
+/*async function StartServer(){
     await server.start();
     server.applyMiddleware({app})
     app.listen(port,()=>{console.log(`Server is live on ${port}`)})
-}
-StartServer();
+} */
+//StartServer();
+async function StartServer(){
+    await server.start();
+    server.applyMiddleware({app});
+    const httpServer= app.listen(port,()=>{
+     console.log('Server Live 3001');
+    })
+    return httpServer;
+ } 
 
- function add(a,b){
-    return a+b;
-} 
-module.exports={app,StartServer,add}
+module.exports={app,StartServer}
